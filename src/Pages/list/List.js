@@ -5,6 +5,7 @@ import Navbar from "../../Components/navbar/Navbar";
 import './list.css'
 import { format } from "date-fns";
 import { DateRange } from 'react-date-range';
+import SearchItem from '../../Components/searchItem/SearchItem';
 const List = () => {
   const location=useLocation()
   const [destination,setDestination]=useState(location.state.destination)
@@ -85,7 +86,15 @@ const List = () => {
             <button>Search</button>
           </div>
 
-          <div className="listResult"></div>
+          <div className="listResult">
+            <SearchItem />
+            <SearchItem />
+            <SearchItem />
+            <SearchItem />
+            <SearchItem />
+            <SearchItem />
+            <SearchItem />
+          </div>
         </div>
       </div>
     </div>

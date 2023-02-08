@@ -6,7 +6,7 @@ import Featured from '../../Components/featured/Featured'
 import PropertyList from '../../Components/property/PropertyList'
 import FeaturedProperties from "../../Components/featuredProperties/FeaturedProperties";
 import MailList from '../../Components/mailList/MailList'
-import Footer from '../../Components/featuredProperties/footer/Footer'
+import Footer from '../../Components/footer/Footer'
 
 const Home = () => {
   return (
