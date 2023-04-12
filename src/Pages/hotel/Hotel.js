@@ -6,25 +6,41 @@ import MailList from "../../Components/mailList/MailList";
 import Footer from "../../Components/footer/Footer"
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState } from 'react';
+import { useContext ,useState } from 'react';
 import {
   faCircleXmark,
   faCircleArrowLeft,
   faCircleArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
-
-
+import useFetch from '../../Hooks/useFetch';
+import { useLocation } from 'react-router-dom';
+import { SearchContext } from '../../context/SearchContext';
 
 const Hotel = () => {
 
   const [slideNumber, setSlideNumber]= useState(0)
    const [open, setOpen] = useState(false);
-   const handleOpen= (i)=>{
+  const location=useLocation()
+ const id = location.pathname.split("/")[2];
+ 
+   const { data, loading, error, reFetch } = useFetch(`/hotels/find/${id}`);
+  
+  const { dates, options } = useContext(SearchContext);
+
+  
+  const MILLISECONDS_PER_DAY= 1000*60*60*24;
+  function dayDifference(date1,date2){
+    const timeDiff = Math.abs(date2?.getTime() - date1?.getTime())
+    const diffDays = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
+    return diffDays
+  }
+  const days = (dayDifference(dates[0]?.endDate, dates[0]?.startDate));
+   
+  const handleOpen= (i)=>{
      setSlideNumber(i);
      setOpen(true)
 
    }
-
    const handleMove = (direction)=>{
       let newSlideNumber
       if (direction==='l'){
@@ -35,32 +51,14 @@ const Hotel = () => {
 
       setSlideNumber(newSlideNumber)
    }
-const photos = [
-  {
-    src: "https://images.pexels.com/photos/14524359/pexels-photo-14524359.jpeg?auto=compress&cs=tinysrgb&w=400",
-  },
-  {
-    src: "https://images.pexels.com/photos/14532723/pexels-photo-14532723.jpeg?auto=compress&cs=tinysrgb&w=400",
-  },
-  {
-    src: "https://images.pexels.com/photos/14532723/pexels-photo-14532723.jpeg?auto=compress&cs=tinysrgb&w=400",
-  },
-  {
-    src: "https://images.pexels.com/photos/14532723/pexels-photo-14532723.jpeg?auto=compress&cs=tinysrgb&w=400",
-  },
-  {
-    src: "https://images.pexels.com/photos/14532723/pexels-photo-14532723.jpeg?auto=compress&cs=tinysrgb&w=400",
-  },
-  {
-    src: "https://images.pexels.com/photos/14532723/pexels-photo-14532723.jpeg?auto=compress&cs=tinysrgb&w=400",
-  },
-];
+      
+
 
   return (
     <div className="hotel">
       <Navbar />
       <Header type="list" />
-      <div className="hotelContainer">
+      {loading ? "Loading" : <div className="hotelContainer">
         {open && (
           <div className="slider">
             <FontAwesomeIcon
@@ -74,7 +72,7 @@ const photos = [
               onClick={() => handleMove("l")}
             />
             <div className="sliderWrapper">
-              <img src={photos[slideNumber].src} alt="" className="sliderImg" />
+              <img src={data.photos[slideNumber]} alt="" className="sliderImg" />
             </div>
             <FontAwesomeIcon
               icon={faCircleArrowRight}
@@ -85,23 +83,23 @@ const photos = [
         )}
         <div className="hotelWrapper">
           <button className="bookNow">Reserve or Back Now</button>
-          <h1 className="hotelTitle">Grand Hotel</h1>
+          <h1 className="hotelTitle">{data.name}</h1>
           <div className="hotelAdress">
             <FontAwesomeIcon icon={faLocationDot} />
-            <span>Ellan st 125 New york</span>
+            <span>{data.address}</span>
           </div>
           <span className="hotelDistance">
-            Excellent location 58m from center
+            Excellent location{data.distance} from center
           </span>
           <span className="hotelPriceHightlight">
-            Book a stay over $14 at this property and get a free airport taxi
+            Book a stay over ${data.cheapestPrice}at this property and get a free airport taxi
           </span>
           <div className="hotelImages">
-            {photos.map((photo, i) => (
+            {data.photos?.map((photo, i) => (
               <div className="hotelImgWrapper">
                 <img
                   onClick={() => handleOpen(i)}
-                  src={photo.src}
+                  src={photo}
                   alt=""
                   className="hotelImg"
                 />
@@ -109,30 +107,21 @@ const photos = [
             ))}
           </div>
 
-          <div className="hotelDetails">
+          <div className="hotelDetails">  
             <div className="hotelDetailsTexts">
-              <h1 className="hotelTitle">Stay in the heart of Krakow</h1>
+              <h1 className="hotelTitle">{data.title}</h1>
               <p className="hotelDesc">
-                "Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-                quae ab illo inventore veritatis et quasi architecto beatae
-                vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
-                voluptas sit aspernatur aut odit aut fugit, sed quia
-                consequuntur magni dolores eos qui ratione voluptatem sequi
-                nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
-                sit amet, consectetur, adipisci velit, sed quia non numquam eius
-                modi tempora incidunt ut labore et dolore magnam aliquam quaerat
-                voluptatem.
+                {data.desc}
               </p>
             </div>
             <div className="hotelDetailsPrice">
-              <h1>Perfect for a 9-night stay!</h1>
+              <h1>Perfect for a {days}-night stay!</h1>
               <span>
                 Located in the real heart of Krakow, this proporty has an
                 excellent location score location score of 9.0
               </span>
               <h2>
-                <b>$956</b> (9 night)
+                <b>${days*data.cheapestPrice* options.room}</b> ({days} night)
               </h2>
               <button>Reserve or Back Now</button>
             </div>
@@ -140,7 +129,7 @@ const photos = [
         </div>
         <MailList />
         <Footer />
-      </div>
+      </div>}
     </div>
   );
 }
