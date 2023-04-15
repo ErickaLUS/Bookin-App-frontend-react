@@ -44,5 +44,5 @@
   },
   "devDependencies": {
     "react-router-dom": "^6.8.0"
-  },"proxy":""
+  },"proxy":"http://localhost:8800/api/"
 }
