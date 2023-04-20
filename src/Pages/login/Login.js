@@ -36,20 +36,20 @@ import axios from "axios";
       <div className="lContainer">
         <input
           type="text"
-          placeholder="username"
+          placeholder="nom"
           id="username"
           onChange={handleChange}
           className="lInput"
         />
         <input
           type="password"
-          placeholder="password"
+          placeholder="mot de passe"
           id="password"
           onChange={handleChange}
           className="lInput"
         />
         <button disabled={loading} onClick={handleClick} className="lButton">
-          Login
+      Connexion
         </button>
         {error && <span>{error.message}</span>}
       </div>
