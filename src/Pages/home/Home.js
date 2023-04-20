@@ -7,14 +7,8 @@ import PropertyList from '../../Components/property/PropertyList'
 import FeaturedProperties from "../../Components/featuredProperties/FeaturedProperties";
 import MailList from '../../Components/mailList/MailList'
 import Footer from '../../Components/footer/Footer'
-import axios from 'axios'
-import {useEffect} from 'react';
+
 const Home = () => {
-  const baseUrl = "/hotels?featured=true&limit=4"
-    React.useEffect(() => {
-    axios.get(baseUrl).then(response)
-      console.log(response)
-  }, []);
   
   return (
     <div className="home">
