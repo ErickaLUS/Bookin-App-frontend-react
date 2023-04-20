@@ -44,5 +44,5 @@
   },
   "devDependencies": {
     "react-router-dom": "^6.8.0"
-  },"proxy":"https://moll-reservation-ssyy.onrender.com"
+  },"proxy":"http://localhost:8800/api/"
 }
