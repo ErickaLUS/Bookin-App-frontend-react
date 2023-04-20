@@ -32,7 +32,7 @@ const Header = ({ type }) => {
   const [options, setOptions] = useState({
     adult: 1,
     children: 0,
-    room: 1,
+   room: 1,
   });
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
@@ -63,42 +63,37 @@ const Header = ({ type }) => {
         <div className="headerList">
           <div className="headerListItem active">
             <FontAwesomeIcon icon={faBed} />
-            <span>Stays</span>
+            <span>Séjours</span>
           </div>
           <div className="headerListItem">
             <FontAwesomeIcon icon={faPlane} />
-            <span>Flights</span>
+            <span>Vols</span>
           </div>
           <div className="headerListItem">
             <FontAwesomeIcon icon={faCar} />
-            <span>Car rentals</span>
-          </div>
-          <div className="headerListItem">
-            <FontAwesomeIcon icon={faBed} />
-            <span>Attractions</span>
+            <span>Voiture</span>
           </div>
           <div className="headerListItem">
             <FontAwesomeIcon icon={faTaxi} />
-            <span>Airport taxis</span>
+            <span>Taxis aéroport</span>
           </div>
         </div>
         {type !== "list" && (
           <>
-            <h1 className="headerTitle">
-              {" "}
-              A lifeTime of discounts? It's Genius
-            </h1>
+            <h1 className="headerTitle"> Une vie de réductions ? Waouh!</h1>
             <p className="headerDesc">
-              Get rewarded for your travel unclock install more witha free
-              Mollbooking account
+              Soyez récompensés pour vos voyages, installez plus avec un compte
+              Moll-réservation gratuit.
             </p>
-           { ! user && <button className="headerBtn">Sign in / Register </button>}
+            {!user && (
+              <button className="headerBtn">se connecter / S'inscrire</button>
+            )}
             <div className="headerSearch">
               <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
                 <input
                   type="text"
-                  placeholder="where are you going?"
+                  placeholder="Où vas-tu?"
                   className="headerSearchInput"
                   onChange={(e) => setDestination(e.target.value)}
                 />
@@ -129,16 +124,16 @@ const Header = ({ type }) => {
                 <span
                   onClick={() => setOpenOptions(!openOptions)}
                   className="headerSearchText"
-                >{`${options.adult} adult · ${options.children} children · ${options.room} room`}</span>
+                >{`${options.adult} adultes · ${options.children} enfants · ${options.room} chambre`}</span>
                 {openOptions && (
                   <div className="options">
                     <div className="optionItem">
-                      <span className="optionText">Adult</span>
+                      <span className="optionText">Adultes</span>
                       <div class="optionCounter">
                         <button
                           disabled={options.adult <= 1}
                           className="optionCounterButton"
-                          onClick={() => handleOption("adult", "d")}
+                          onClick={() => handleOption("adultes", "d")}
                         >
                           -
                         </button>
@@ -147,14 +142,14 @@ const Header = ({ type }) => {
                         </span>
                         <button
                           className="optionCounterButton"
-                          onClick={() => handleOption("adult", "i")}
+                          onClick={() => handleOption("adultes", "i")}
                         >
                           +
                         </button>
                       </div>
                     </div>
                     <div className="optionItem">
-                      <span className="optionText">children</span>
+                      <span className="optionText">Enfants</span>
                       <div class="optionCounter">
                         <button
                           disabled={options.children <= 0}
@@ -175,7 +170,7 @@ const Header = ({ type }) => {
                       </div>
                     </div>
                     <div className="optionItem">
-                      <span className="optionText">Room</span>
+                      <span className="optionText">Chambres</span>
                       <div class="optionCounter">
                         <button
                           disabled={options.room <= 1}
@@ -200,7 +195,7 @@ const Header = ({ type }) => {
               </div>
               <div className="headerSearchItem">
                 <button className="headerBtn" onClick={handleSearch}>
-                  Search
+                Recherche
                 </button>
               </div>
             </div>

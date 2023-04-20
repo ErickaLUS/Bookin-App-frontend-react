@@ -22,13 +22,12 @@ const Home = () => {
       <Header />
       <div className="homeContainer">
         <Featured />
-        <h1 className="homeTitle">Browse by proporty type</h1>
+        <h1 className="homeTitle">Parcourir par type de propriétées</h1>
         <PropertyList />
-        <h1 className="homeTitle">Browse by proporty type</h1>
-    <FeaturedProperties/>
-    <MailList/>
-    <Footer/>
-    
+        <h1 className="homeTitle">Parcourir par type de propriétées</h1>
+        <FeaturedProperties />
+        <MailList />
+        <Footer />
       </div>
     </div>
   );

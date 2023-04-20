@@ -8,11 +8,11 @@ const Navbar = () => {
     <div className="navbar">
       <div className="navContainer">
         <Link to="/" style={{color:"inherit", textDecoration:"none"}}>
-          <span className="logo">Mollbooking</span>
+          <span className="logo">Moll-réservation</span>
         </Link> 
        {user ? user.username : (<div className="navItems">
-          <button className="navButton">Registrer</button>
-          <button className="navButton">Login</button>
+          <button className="navButton">Enregistrer</button>
+          <button className="navButton">Connexion</button>
         </div>)}
       </div>
     </div>

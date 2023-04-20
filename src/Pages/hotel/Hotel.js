@@ -69,79 +69,89 @@ const handleClick = ()=>{
     <div className="hotel">
       <Navbar />
       <Header type="list" />
-      {loading ? "Loading" : <div className="hotelContainer">
-        {open && (
-          <div className="slider">
-            <FontAwesomeIcon
-              icon={faCircleXmark}
-              className="close"
-              onClick={() => setOpen(false)}
-            />
-            <FontAwesomeIcon
-              icon={faCircleArrowLeft}
-              className="arrow"
-              onClick={() => handleMove("l")}
-            />
-            <div className="sliderWrapper">
-              <img src={data.photos[slideNumber]} alt="" className="sliderImg" />
-            </div>
-            <FontAwesomeIcon
-              icon={faCircleArrowRight}
-              className="arrow"
-              onClick={() => handleMove("r")}
-            />
-          </div>
-        )}
-        <div className="hotelWrapper">
-          <button className="bookNow">Reserve or Back Now</button>
-          <h1 className="hotelTitle">{data.name}</h1>
-          <div className="hotelAdress">
-            <FontAwesomeIcon icon={faLocationDot} />
-            <span>{data.address}</span>
-          </div>
-          <span className="hotelDistance">
-            Excellent location{data.distance} from center
-          </span>
-          <span className="hotelPriceHightlight">
-            Book a stay over ${data.cheapestPrice}at this property and get a free airport taxi
-          </span>
-          <div className="hotelImages">
-            {data.photos?.map((photo, i) => (
-              <div className="hotelImgWrapper">
+      {loading ? (
+        "Loading"
+      ) : (
+        <div className="hotelContainer">
+          {open && (
+            <div className="slider">
+              <FontAwesomeIcon
+                icon={faCircleXmark}
+                className="close"
+                onClick={() => setOpen(false)}
+              />
+              <FontAwesomeIcon
+                icon={faCircleArrowLeft}
+                className="arrow"
+                onClick={() => handleMove("l")}
+              />
+              <div className="sliderWrapper">
                 <img
-                  onClick={() => handleOpen(i)}
-                  src={photo}
+                  src={data.photos[slideNumber]}
                   alt=""
-                  className="hotelImg"
+                  className="sliderImg"
                 />
               </div>
-            ))}
-          </div>
+              <FontAwesomeIcon
+                icon={faCircleArrowRight}
+                className="arrow"
+                onClick={() => handleMove("r")}
+              />
+            </div>
+          )}
+          <div className="hotelWrapper">
+            <button className="bookNow">réserver ou revenir maintenant</button>
+            <h1 className="hotelTitle">{data.name}</h1>
+            <div className="hotelAdress">
+              <FontAwesomeIcon icon={faLocationDot} />
+              <span>{data.address}</span>
+            </div>
+            <span className="hotelDistance">
+              Excellent emplacement {data.distance}m du centre
+            </span>
+            <span className="hotelPriceHightlight">
+              Réservez un séjour de plus de {data.cheapestPrice}$ans cet
+              établissement et obtenez un taxi gratuit pour l'aéroport
+            </span>
+            <div className="hotelImages">
+              {data.photos?.map((photo, i) => (
+                <div className="hotelImgWrapper">
+                  <img
+                    onClick={() => handleOpen(i)}
+                    src={photo}
+                    alt=""
+                    className="hotelImg"
+                  />
+                </div>
+              ))}
+            </div>
 
-          <div className="hotelDetails">  
-            <div className="hotelDetailsTexts">
-              <h1 className="hotelTitle">{data.title}</h1>
-              <p className="hotelDesc">
-                {data.desc}
-              </p>
-            </div>
-            <div className="hotelDetailsPrice">
-              <h1>Perfect for a {days}-night stay!</h1>
-              <span>
-                Located in the real heart of Krakow, this proporty has an
-                excellent location score location score of 9.0
-              </span>
-              <h2>
-                <b>${days*data.cheapestPrice* options.room}</b> ({days} night)
-              </h2>
-              <button onClick={handleClick}>Reserve or Back Now</button>
+            <div className="hotelDetails">
+              <div className="hotelDetailsTexts">
+                <h1 className="hotelTitle">{data.title}</h1>
+                <p className="hotelDesc">{data.desc}</p>
+              </div>
+              <div className="hotelDetailsPrice">
+                <h1>Parfait pour un séjour de {days} nuits!</h1>
+                <span>
+                  Situé en plein cœur de Kinshasa, cet établissement a un
+                  excellent score de localisation de 9,0
+                </span>
+                <h2>
+                  <b>${days * data.cheapestPrice * options.room}</b> ({days}{" "}
+                  nuits)
+                </h2>
+                <button onClick={handleClick}>
+                  réserver ou revenir maintenant
+                </button>
+              </div>
             </div>
           </div>
+          <MailList />
+          <Footer />
         </div>
-        <MailList />
-        <Footer />
-      </div>}
-      {openModal && <Reserve setOpen={setOpenModal} hotelId={id}/>}
+      )}
+      {openModal && <Reserve setOpen={setOpenModal} hotelId={id} />}
     </div>
   );
 }
