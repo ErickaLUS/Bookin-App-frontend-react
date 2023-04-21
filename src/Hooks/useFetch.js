@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import axios from "axios";
 
-
-const useFetch=(url)=>{
+const useFetch = (url) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+
+  const apiURL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(url);
-      
+        const res = await axios.get(`${apiURL}${url}`);
         setData(res.data);
       } catch (err) {
         setError(err);
@@ -32,7 +32,7 @@ const useFetch=(url)=>{
     }
     setLoading(false);
   };
-  return {data,loading,error,reFetch}
-}
+  return { data, loading, error, reFetch };
+};
 
 export default useFetch;
