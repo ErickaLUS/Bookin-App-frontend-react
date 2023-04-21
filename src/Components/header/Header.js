@@ -133,7 +133,7 @@ const Header = ({ type }) => {
                         <button
                           disabled={options.adult <= 1}
                           className="optionCounterButton"
-                          onClick={() => handleOption("adultes", "d")}
+                          onClick={() => handleOption("adult", "d")}
                         >
                           -
                         </button>
@@ -142,7 +142,7 @@ const Header = ({ type }) => {
                         </span>
                         <button
                           className="optionCounterButton"
-                          onClick={() => handleOption("adultes", "i")}
+                          onClick={() => handleOption("adult", "i")}
                         >
                           +
                         </button>
